@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
+use App\Jobs\ValidateAddressJob;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductColor;
@@ -12,6 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -37,7 +39,11 @@ class ProductResource extends Resource
                 Select::make('product_color_id')
                     ->label('Color')
                     ->options(ProductColor::all()->pluck('name', 'id'))
-                    ->rules(['required'])->markAsRequired()
+                    ->rules(['required'])->markAsRequired(),
+                TextInput::make('address')
+                    ->label('Address')
+                    ->reactive()
+                    ->afterStateUpdated(fn ($state, $set) => $set('status', 'Pending')),
             ]);
     }
 
@@ -50,6 +56,11 @@ class ProductResource extends Resource
                 TextColumn::make('description'),
                 TextColumn::make('category.name')->sortable(),
                 TextColumn::make('color.name')->sortable(),
+                TextColumn::make('address'),
+                TextColumn::make('status')
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 Filter::make('created_at'),
@@ -58,6 +69,15 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Action::make('validate_address')
+                ->label('Validate Address')
+                ->action(function ($record) {
+                    $address = $record->address;
+                    if ($address) {
+                        ValidateAddressJob::dispatch($record, $address);
+                    }
+                })
+                ->color('secondary'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

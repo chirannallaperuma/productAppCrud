@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,12 @@ return new class extends Migration
             $table->string('external_url')->nullable();
             $table->timestamps();
         });
+
+        ProductCategory::insert([
+            ['name' => 'Category 1', 'description' => 'Description for Category 1'],
+            ['name' => 'Category 2', 'description' => 'Description for Category 2'],
+            ['name' => 'Category 3', 'description' => 'Description for Category 3'],
+        ]);
     }
 
     /**

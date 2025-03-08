@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductColor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,12 @@ return new class extends Migration
             $table->string('hex_code')->nullable();
             $table->timestamps();
         });
+
+        ProductColor::insert([
+            ['name' => 'Red', 'hex_code' => '#FF0000', 'description' => 'red color'],
+            ['name' => 'Green', 'hex_code' => '#00FF00', 'description' => 'green color'],
+            ['name' => 'Blue', 'hex_code' => '#0000FF', 'description' => 'blue color'],
+        ]);
     }
 
     /**

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ProductCategory;
-use App\Models\ProductColor;
-use App\Models\ProductType;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,9 +21,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ProductCategory::class,
-            ProductType::class,
-            ProductColor::class
+            ProductCategorySeeder::class,
+            ProductTypeSeeder::class,
+            ProductColorSeeder::class
         ]);
     }
 }

@@ -40,11 +40,11 @@ return new class extends Migration
         });
 
         User::insert([
-            'name' => 'Test User',
+            ['name' => 'Test User',
             'email' => 'test@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'remember_token' => Str::random(10)]
         ]);
     }
 

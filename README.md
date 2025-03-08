@@ -41,9 +41,9 @@ Follow the steps below to set up the project on your local machine:
     php artisan serve
 
 5. **login to the system**
-    http://127.0.0.1:8000/admin/login
-    
-    email: chirannad@gmail.com
-    password: 12345678
+    https://productappcrud-productapp-tqviua.laravel.cloud/admin/login
+
+    email: test@example.com
+    password: password
 
 

@@ -33,6 +33,7 @@ Follow the steps below to set up the project on your local machine:
 
 3. **Environment Setup**  
     cp .env.example .env
+    php artisan key:generate
 
 4. **Run Migrations and Seeders**
     php artisan migrate --seed
